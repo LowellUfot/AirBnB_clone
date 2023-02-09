@@ -47,7 +47,7 @@ class TestBaseModel(unittest.TestCase):
             checks if method returns json type
         """
         bm = BaseModel()
-        dict_rep = bm.to_dict
+        dict_rep = bm.to_dict()
         self.assertIsInstance(dict_rep, dict)
 
     if __name__ == '__main__':
