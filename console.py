@@ -14,7 +14,8 @@ import models
 class HBNBCommand(cmd.Cmd):
     """ command processor console class for the airbnb"""
     prompt = "(hbnb) "
-    __class_list = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+    __class_list = ["BaseModel", "Amenity", "City", "Place",
+                    "Review", "State", "User"]
     __classes = {"BaseModel": BaseModel,
                  "Amenity": Amenity,
                  "City": City,
