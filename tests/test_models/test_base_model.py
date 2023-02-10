@@ -50,5 +50,13 @@ class TestBaseModel(unittest.TestCase):
         dict_rep = bm.to_dict()
         self.assertIsInstance(dict_rep, dict)
 
+    def test_base_model_instance(self):
+        """test for uniqueness of the BaseModel object"""
+        my_dict = dict({'my_num': 89, 'my_name': 'John_Doe'})
+        bm1 = BaseModel()
+        bm2 = BaseModel(**my_dict)
+
+        self.assertIsNot(bm1, bm2)
+
     if __name__ == '__main__':
         unittest.main()
