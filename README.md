@@ -128,4 +128,4 @@ To all the peers that contribuited with their knowledge
 
 ### Authors :fountain_pen:
 * Adeyemi Adejumo - @Ade-yem
-* LowellUfot  - @LowellUfot
+* Lowell Ufot  - @LowellUfot
