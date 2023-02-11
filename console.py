@@ -15,11 +15,9 @@ import shlex
 
 class HBNBCommand(cmd.Cmd):
     """Command processor"""
-
     prompt = "(hbnb) "
     l_classes = ['BaseModel', 'User', 'Amenity',
                  'Place', 'City', 'State', 'Review']
-
     l_c = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
     def precmd(self, arg):
@@ -30,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
             args = cnd[1].split(')')
             if cls[0] in HBNBCommand.l_classes and cnd[0] in HBNBCommand.l_c:
                 arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
-                return arg
+        return arg
 
     def help_help(self):
         """ Prints help command description """
@@ -48,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             clss = k.split('.')
             if clss[0] == cls_name:
                 count = count + 1
-                print(count)
+        print(count)
 
     def do_create(self, type_model):
         """ Creates an instance according to a given class """
@@ -123,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
                 ob_name = value.__class__.__name__
                 if ob_name == args[0]:
                     list_instances += [value.__str__()]
-                    print(list_instances)
+            print(list_instances)
 
     def do_update(self, arg):
         """ Updates an instance based on the class name and id """
