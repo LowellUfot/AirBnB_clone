@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ this module is for the python console for the hbnb project"""
 import cmd
+import shlex
 from models.base_model import BaseModel
 from models.amenity import Amenity
 from models.city import City
@@ -14,8 +15,8 @@ import models
 class HBNBCommand(cmd.Cmd):
     """ command processor console class for the airbnb"""
     prompt = "(hbnb) "
-    __class_list = ["BaseModel", "Amenity", "City", "Place",
-                    "Review", "State", "User"]
+    __class_list = ["BaseModel", "Amenity", "City",
+                    "Place", "Review", "State", "User"]
     __classes = {"BaseModel": BaseModel,
                  "Amenity": Amenity,
                  "City": City,
@@ -23,6 +24,16 @@ class HBNBCommand(cmd.Cmd):
                  "Review": Review,
                  "State": State,
                  "User": User}
+
+    def precmd(self, line):
+        """parses command input"""
+        if "." in line and "(" in line and ")" in line:
+            arg = line.split(".")
+            arg1 = arg[1].split("(")
+            arg2 = arg1[1].split(")")
+            comm_d = arg1[0] + " " + arg[0] + " " + arg2[0]
+            return comm_d
+        return line
 
     def do_EOF(self, line):
         """EOF command to exit the program"""
@@ -37,8 +48,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        """ Creates a new instance of BaseModel,
-            saves it (to the JSON file) and prints the id.
+        """
+        Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id.
         """
         if not line:
             print("** class name missing")
@@ -70,7 +82,8 @@ class HBNBCommand(cmd.Cmd):
             for k, v in obj_all.items():
                 name = v.__class__.__name__
                 obj_id = v.id
-                if name == args[0] and obj_id == args[1]:
+                if name == args[0] and obj_id == args[1].strip('"'):
+                    # the strip caters for the precmd method
                     print(v)
                     return
             print("** no instance found **")
@@ -92,7 +105,8 @@ class HBNBCommand(cmd.Cmd):
             for k, v in obj_all.items():
                 name = v.__class__.__name__
                 obj_id = v.id
-                if name == args[0] and obj_id == args[1]:
+                if name == args[0] and obj_id == args[1].strip('"'):
+                    # the strip caters for the precmd method
                     del obj_all[k]
                     models.storage.save()
                     return
@@ -126,25 +140,30 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        args = line.split(" ")
+        a = ""
+        for argv in line.split(','):
+            a = a + argv
+
+        args = shlex.split(a)
         if args[0] not in self.__class_list:
             print("** class doesn't exist **")
-            if len(args) < 2:
-                print("** instance id missing **")
-                obj = models.storage.all()
-                for v in obj.values():
-                    name = v.__class__.__name__
-                    obj_id = v.id
-                    if name == args[0] and obj_id == args[1]:
-                        if len(args) < 3:
-                            print("** attribute name missing **")
-                        elif len(args) < 4:
-                            print("** value missing **")
-                        else:
-                            setattr(v, args[2], args[3])
-                            models.storage.save()
-                        return
-                print("** no instance found **")
+        if len(args) < 2:
+            print("** instance id missing **")
+        obj = models.storage.all()
+        for v in obj.values():
+            name = v.__class__.__name__
+            obj_id = v.id
+            if name == args[0] and obj_id == args[1].strip('"'):
+                # the strip caters for the precmd method
+                if len(args) < 3:
+                    print("** attribute name missing **")
+                elif len(args) < 4:
+                    print("** value missing **")
+                else:
+                    setattr(v, args[2], args[3])
+                    models.storage.save()
+                return
+        print("** no instance found **")
 
 
 if __name__ == '__main__':

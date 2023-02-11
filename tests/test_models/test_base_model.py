@@ -3,7 +3,6 @@
     Module to test the methods in class BaseModel
 """
 
-
 import unittest
 import json
 from datetime import datetime
