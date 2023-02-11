@@ -53,15 +53,15 @@ class HBNBCommand(cmd.Cmd):
                 count = count + 1
         print(count)
 
-    def do_create(self, type_model):
+    def do_create(self, line):
         """ Creates an instance according to a given class """
 
-        if not type_model:
+        if not line:
             print("** class name missing **")
-        elif type_model not in HBNBCommand.l_classes:
+        elif line not in self.l_classes:
             print("** class doesn't exist **")
         else:
-            my_model = self.__dct[type_model]()
+            my_model = self.__dct[line]()
             print(my_model.id)
             my_model.save()
 
@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(' ')
 
-        if args[0] not in HBNBCommand.l_classes:
+        if args[0] not in self.l_classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(' ')
 
-        if args[0] not in HBNBCommand.l_classes:
+        if args[0] not in self.l_classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg.split(' ')
 
-        if args[0] not in HBNBCommand.l_classes:
+        if args[0] not in self.l_classes:
             print("** class doesn't exist **")
         else:
             all_objs = storage.all()
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = shlex.split(a)
 
-        if args[0] not in HBNBCommand.l_classes:
+        if args[0] not in self.l_classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
