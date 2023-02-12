@@ -107,8 +107,7 @@ class HBNBCommand(cmd.Cmd):
                 ob_name = value.__class__.__name__
                 ob_id = value.id
                 if ob_name == args[0] and ob_id == args[1].strip('"'):
-                    del value
-                    del storage._FileStorage__objects[key]
+                    del all_objs[key]
                     storage.save()
                     return
             print("** no instance found **")
