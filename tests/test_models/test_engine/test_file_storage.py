@@ -4,6 +4,7 @@
 """
 
 
+import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 import json
@@ -21,8 +22,8 @@ class TestFileStorage(unittest.TestCase):
         bm.save()
         all_objs = fs.all()
         len_all_objs = len(all_objs)
-        assertisInstance(all_objs, dict)
-        assertNotEqual(len_all_objs, 0)
+        self.assertIsInstance(all_objs, dict)
+        self.assertNotEqual(len_all_objs, 0)
 
     if __name__ == "__main__":
         unittest.main()
