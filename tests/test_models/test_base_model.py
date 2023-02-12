@@ -54,8 +54,13 @@ class TestBaseModel(unittest.TestCase):
         my_dict = dict({'my_num': 89, 'my_name': 'John_Doe'})
         bm1 = BaseModel()
         bm2 = BaseModel(**my_dict)
-
         self.assertIsNot(bm1, bm2)
+
+    def test_str(self):
+        bm1 = BaseModel()
+        bm1_str = bm1.__str__()
+        bm_str = str(bm1_str)
+        self.assertEqual(bm1_str, bm_str)
 
     if __name__ == '__main__':
         unittest.main()
