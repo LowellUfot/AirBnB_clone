@@ -7,7 +7,7 @@ import models
 
 
 class BaseModel:
-    """base model class"""
+    """class for the base model which other models will inherit from"""
     def __init__(self, *args, **kwargs):
         """ constructor for the class
             Args:
