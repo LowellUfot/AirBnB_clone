@@ -1,2 +1,5 @@
+# Emacs extra files
 *~
 *#
+# Pycache folder
+__pycache__/
