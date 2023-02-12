@@ -31,8 +31,7 @@ class HBNBCommand(cmd.Cmd):
             cls = arg.split('.')
             cnd = cls[1].split('(')
             args = cnd[1].split(')')
-            if cls[0] in self.l_classes and cnd[0] in self.l_c:
-                arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
+            arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
         return arg
 
     def help_help(self):
@@ -43,13 +42,14 @@ class HBNBCommand(cmd.Cmd):
         """do nothing when empty line"""
         pass
 
-    def do_count(self, cls_name):
-        """counts number of instances of a class"""
+    def do_count(self, line):
+        """counts number of instances of a class
+        """
         count = 0
         all_objs = storage.all()
         for k, v in all_objs.items():
             clss = k.split('.')
-            if clss[0] == cls_name:
+            if clss[0] == line:
                 count = count + 1
         print(count)
 
