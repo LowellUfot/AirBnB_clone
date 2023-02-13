@@ -7,6 +7,7 @@ import unittest
 import json
 from datetime import datetime
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -61,6 +62,19 @@ class TestBaseModel(unittest.TestCase):
         bm1_str = bm1.__str__()
         bm_str = str(bm1_str)
         self.assertEqual(bm1_str, bm_str)
+
+    def test_base_model_attributes(self):
+        """test attributes of BaseModel instance"""
+        bm = BaseModel()
+        bm.name = "John_Doe"
+        bm.number = 89
+        bm.save()
+        bm_json = bm.to_dict()
+
+        self.assertEqual(bm.name, bm_json['name'])
+        self.assertEqual(bm.number, bm_json['number'])
+        self.assertEqual('BaseModel', bm_json['__class__'])
+        self.assertEqual(bm.id, bm_json['id'])
 
     if __name__ == '__main__':
         unittest.main()
