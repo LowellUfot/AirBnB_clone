@@ -1,0 +1,20 @@
+/*
+===================
+footer
+===================
+*/
+footer {
+	background: #00FF00;
+	height: 60px;
+	width 100%;
+}
+
+/*
+===================
+footer paragraph
+===================
+*/
+footer p {
+	text-align: center; 
+	margin: 20px;
+}
